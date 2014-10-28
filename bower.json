@@ -11,14 +11,26 @@
 	".bowerrc",
 	"*.sh"
   ],
-  "authors": [
-    "Marc Nolte <marcnolte@hotmail.com>"
+  "keywords": [
+	"bootstrap",
+	"calendar",
+	"events",
+	"navigation",
+	"responsive",
+	"easy",
+	"flexible"
   ],
+  "authors": [
+	{ "name": "Marc Nolte", "email": "contact@marcnolte.nl", "homepage": "http://marcnolte.nl" }
+  ],
+  "repository": {
+	  "type": "git",
+	  "url": "git://github.com/mnolte/bootstrap-calendar.git"
+  },
   "dependencies": {
     "jquery": "~1.9.0",
     "moment": "~2.8.3",
     "underscore": "~1.7.0"
   },
-  
   "private": true
 }

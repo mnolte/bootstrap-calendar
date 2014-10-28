@@ -1,0 +1,16 @@
+<div class="calendar-year">
+	<div class="calendar-tbody">
+		<div class="calendar-row">
+			<% while (counter < end) { %>
+				<div class="calendar-col <%= now.isSame(counter, 'month') ? 'calendar-col-today ' : '' %>calendar-link" data-calendar-view="month" data-calendar-date="<%= counter.format('YYYY-MM-DD') %>">
+					<%= instance.renderSection(counter) %>
+				</div>
+				<% if ((counter.month() + 1) % 4 === 0 && counter.month() < 11) { %>
+					</div>
+					<div class="calendar-row">
+				<% } %>
+				<% counter.add(1, 'months') %>
+			<% } %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+<div class="calendar-day">
+	<div class="calendar-day-no"><%= start.format('D') %></div>
+	<div class="calendar-day-events">
+		<% if (events.length > 0) { %>
+			<ul class="calendar-event-dots">
+				<% _.each(events, function (event) { %>
+					<li class="calendar-event-dot calendar-link" data-calendar-trigger="modal-event" data-calendar-event-id="<%= event.id %>" data-calendar-event-name="<%= event.name %>" data-calendar-event-start="<%= event.start %>" data-calendar-event-end="<%= event.end %>" title="<%= event.name %>"></li>
+				<% }) %>
+			</ul>
+		<% } %>
+	</div>
+</div>

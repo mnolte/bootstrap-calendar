@@ -1,0 +1,37 @@
+<div class="calendar-month">
+	<div class="calendar-thead hidden-xs">
+		<div class="calendar-row">
+			<% _.each(instance.constants.weekdays, function (weekday) { %>
+				<div class="calendar-col">
+					<%= weekday %><br>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+	<div class="calendar-tbody">
+		<% while (counter < end) { %>
+			
+			<% if (counter.weekday() === 0) { %>
+				<div class="calendar-row">
+			<% } %>
+
+			<%
+			clss = 'calendar-col';
+			if (now.isSame(counter, 'day')) 				clss += ' calendar-col-today';
+			if (position.start.diff(counter, 'day') > 0)	clss += ' calendar-col-outside';
+			if (position.end.diff(counter, 'day') < 1)		clss += ' calendar-col-outside';
+			if (position.end.diff(counter, 'day') === 1)	clss += ' last';
+			%>
+			<div class="<%= clss %>">
+				<%= instance.renderSection(counter) %>
+			</div>
+			
+			<% if (counter.weekday() === 6) { %>
+				</div>
+			<% } %>
+			
+			<% counter.add(1, 'days') %>
+			
+		<% } %>
+	</div>
+</div>

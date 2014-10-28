@@ -1,0 +1,6 @@
+<div class="calendar-month">
+	<%= start.format('MMMM').ucfirst() %>
+	<% if (events.length > 0) { %>
+		<span class="badge pull-right"><%= events.length %></span>
+	<% } %>
+</div>

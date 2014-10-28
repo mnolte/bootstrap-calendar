@@ -1,0 +1,355 @@
+@import "bootstrap-less-3.2.0/variables.less";
+@import "bootstrap-less-3.2.0/mixins/clearfix.less";
+
+//
+// Variables
+//
+@calendar-background-color				: @panel-bg;
+@calendar-header-background-color		: @panel-default-heading-bg;
+@calendar-text-color					: @panel-default-text;
+@calendar-text-color-light				: lighten(@panel-default-text, 40%);
+@calendar-link-color					: @calendar-text-color;
+@calendar-link-hover-color				: darken(@calendar-link-color, 15%);
+@calendar-link-hover-background-color	: darken(@calendar-background-color, 13.5%);
+@calendar-today-background-color		: #F6F6F6;
+
+@event-dot-size							: 14px;
+@event-dot-color						: @gray-light;
+
+@modal-header-background-color			: @event-dot-color;
+@modal-header-border-color				: darken(@modal-header-background-color, 13.5%);;
+@modal-header-text-color				: #fff;
+
+//
+// Mixins
+//
+.border(@color: @panel-default-border) {
+	border					: 1px solid @color;
+}
+.rounded(@radius: @panel-border-radius) {
+  -webkit-border-radius		: @radius;
+     -moz-border-radius		: @radius;
+          border-radius		: @radius;
+}
+.opacity(@opacity: 0.5) {
+	   -moz-opacity: @opacity;
+	 -khtml-opacity: @opacity;
+	-webkit-opacity: @opacity;
+			opacity: @opacity;
+			@opperc: @opacity * 100;
+		 -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+			 filter: ~"alpha(opacity=@{opperc})";
+}
+.transition(@duration:0.2s, @ease:ease-out) {
+	-webkit-transition: all @duration @ease;
+	   -moz-transition: all @duration @ease;
+		 -o-transition: all @duration @ease;
+			transition: all @duration @ease;
+}
+.calendar-block() {
+	display				: block;
+	width				: 100%;
+	background-color	: @calendar-background-color;
+	color				: @calendar-text-color;
+	> .calendar-tbody > .calendar-row {
+		> .calendar-col {
+			.border(@panel-default-border);
+			@media (max-width: @screen-xs-max) {
+				border-bottom-width: 0;
+			}
+		}
+		@media (max-width: @screen-xs-max) {
+			&:last-child {
+				> .calendar-col.last,
+				> .calendar-col:last-child {
+					border-bottom-width: 1px;
+				}
+			}
+		}
+	}
+}
+.calendar-table() {
+	display				: table;
+	width				: 100%;
+	height				: auto;
+	table-layout		: fixed;
+	border-collapse		: collapse;
+	background-color	: @calendar-background-color;
+	color				: @calendar-text-color;
+	> .calendar-thead {
+		display		: table-header-group;
+		> .calendar-row > .calendar-col {
+			background-color: @calendar-header-background-color;
+			padding-top		: 5px;
+			padding-bottom	: 5px;
+			text-align		: center;
+			overflow		: hidden;
+		}
+	}
+	> .calendar-tbody {
+		display		: table-row-group;
+		> .calendar-row > .calendar-col,
+		> .calendar-row > .calendar-col > .calendar-col-split {
+			vertical-align	: top;
+		}
+	}
+	> .calendar-thead,
+	> .calendar-tbody {
+		> .calendar-row {
+			display	: table-row;
+			> .calendar-col {
+				display	: table-cell;
+				width	: 1%;
+				.border(@panel-default-border);
+				> .calendar-col-split {
+					display: block;
+				}
+				> .calendar-col-split:first-child {
+					border-bottom: 1px solid @panel-default-border;
+				}
+			}
+		}
+		> .calendar-row.visible-xs {
+			@media (max-width: @screen-xs-max) {
+				display	: table-row !important;
+			}
+		}
+	}
+}
+
+//
+// Rules
+//
+.calendar-wrapper {
+	display			: block;
+	width			: 100%;
+	height			: auto;
+	margin-bottom	: 20px;
+	.clearfix;
+}
+.calendar-wrapper .calendar-header {
+	margin-bottom		: 10px;
+	.clearfix;
+	> .calendar-title {
+		padding		: 1px 0 0 0;
+		font-size	: @font-size-h2;
+		@media (max-width: @screen-xs-max) {
+			margin	: 0 0 5px;
+		}
+		@media (min-width: @screen-sm-min) {
+			margin	: 0 10px 0 0;
+			float	: left;
+		}
+	}
+	> .calendar-toolbar {
+		@media (max-width: @screen-xs-max) {
+			> .btn-group {
+				display			: table;
+				width			: 100%;
+				table-layout	: fixed;
+				border-collapse	: separate;
+				> .btn,
+				> .btn-group {
+					float	: none;
+					display	: table-cell;
+					width	: 1%;
+				}
+				> .btn-group .btn {
+					width	: 100%;
+				}
+				> .btn-group .dropdown-menu {
+					left	: auto;
+				}
+			}
+			> .btn-group + .btn-group {
+				margin-top: 10px;
+			}
+		}
+		@media (min-width: @screen-sm-min) {
+			float	: right;
+		}
+	}
+}
+.calendar-wrapper .calendar-container {
+	.clearfix;
+	margin-bottom	: 20px;
+	> .calendar-year {
+		@media (max-width: @screen-xs-max) {
+			.calendar-block;
+		}
+		@media (min-width: @screen-sm-min) {
+			.calendar-table;
+		}
+		> .calendar-tbody > .calendar-row {
+			> .calendar-col {
+				padding	: 15px 10px;
+				> .calendar-month {
+					.clearfix;
+				}
+			}
+		}
+	}
+	> .calendar-month {
+		@media (max-width: @screen-xs-max) {
+			.calendar-block;
+			> .calendar-tbody > .calendar-row {
+				> .calendar-col {
+					padding: 10px 15px;
+					> .calendar-day {
+						display				: table;
+						width				: 100%;
+						height				: auto;
+						table-layout		: fixed;
+						border-collapse		: collapse;
+						> .calendar-day-no,
+						> .calendar-day-events {
+							display	: table-cell;
+						}
+						> .calendar-day-no {
+							text-align	: left;
+							padding		: 0 5px 0 0;
+							width		: 40px;
+						}
+					}
+				}
+				> .calendar-col.calendar-col-outside {
+					display: none !important;
+				}
+			}
+		}
+		@media (min-width: @screen-sm-min) {
+			.calendar-table;
+			> .calendar-tbody > .calendar-row {
+				> .calendar-col {
+					> .calendar-day {
+						> .calendar-day-no {
+							line-height	: 15px;
+							text-align	: right;
+							padding		: 5px;
+						}
+						> .calendar-day-events {
+							height		: 80px;
+							overflow-x	: hidden;
+							overflow-y	: auto;
+						}
+					}
+				}
+				> .calendar-col.calendar-col-outside > .calendar-day > .calendar-day-no {
+					color: @calendar-text-color-light;
+				}
+			}
+		}
+	}
+	> .calendar-week {
+		@media (max-width: @screen-xs-max) {
+			.calendar-block;
+			> .calendar-tbody > .calendar-row:not(:last-child) > .calendar-col {
+				padding: 10px 15px;
+			}
+			> .calendar-tbody > .calendar-row:last-child {
+				> .calendar-col:not(:last-child) {
+					padding: 10px 15px;
+				}
+				> .calendar-col > .calendar-col-split {
+					padding: 10px 15px;
+				}
+				> .calendar-col > .calendar-col-split:first-child {
+					border-bottom: 1px solid @panel-default-border;
+				}
+			}
+			.calendar-day {
+				display				: table;
+				width				: 100%;
+				height				: auto;
+				table-layout		: fixed;
+				border-collapse		: collapse;
+				> .calendar-day-no,
+				> .calendar-day-events {
+					display	: block;
+				}
+			}
+		}
+		@media (min-width: @screen-sm-min) {
+			.calendar-table;
+			> .calendar-tbody > .calendar-row {
+				> .calendar-col {
+					.calendar-day > .calendar-day-no {
+						line-height	: 15px;
+						padding		: 5px;
+					}
+					.calendar-day > .calendar-day-events {
+						height		: 145px;
+						overflow-x	: hidden;
+						overflow-y	: auto;
+					}
+					> .calendar-col-split .calendar-day > .calendar-day-events {
+						height		: 60px;
+						overflow-x	: hidden;
+						overflow-y	: auto;
+					}
+				}
+			}
+		}
+	}
+	> .calendar-year,
+	> .calendar-month,
+	> .calendar-week {
+		> .calendar-tbody > .calendar-row .calendar-col-today {
+			background-color: @calendar-today-background-color;
+			> .calendar-day > .calendar-day-no {
+				font-weight: 600;
+			}
+		}
+	}
+	> .calendar-month,
+	> .calendar-week {
+		> .calendar-tbody > .calendar-row > .calendar-col {
+			ul.calendar-event-dots {
+				margin		: 0;
+				@media (max-width: @screen-xs-max) {
+					padding		: 0;
+				}
+				@media (min-width: @screen-sm-min) {
+					padding		: 0 5px;
+				}
+				> li.calendar-event-dot {
+					display			: inline-block;
+					width			: @event-dot-size;
+					height			: @event-dot-size;
+					background-color: @event-dot-color;
+					.rounded(100%);
+				}
+			}
+		}
+	}
+	.calendar-link {
+		color			: inherit;
+		text-decoration	: none;
+		cursor			: pointer;
+		.transition;
+	}
+	.calendar-link:hover {
+		color			: inherit;
+		div&,
+		li& {
+			background-color: @calendar-link-hover-background-color !important;
+		}
+	}
+}
+.calendar-modal-event > .modal-dialog {
+	> .modal-content {
+		.rounded(0);
+		> .modal-header {
+			background-color	: @modal-header-background-color;
+			border-bottom-color	: @modal-header-border-color;
+			color				: @modal-header-text-color;
+			> .close {
+				color			: @modal-header-text-color;
+				.opacity(0.8);
+			}
+		}
+		> .modal-body > :last-child {
+			margin-bottom		: 0;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+<div class="calendar-week">
+	<div class="calendar-tbody">
+		<div class="calendar-row">
+			<% while (counter < end) { %>				
+
+				<% if ($.inArray(counter.weekday(), [5,6]) !== -1) { %>
+
+					<div class="calendar-col">
+						<div class="calendar-col-split<%= (now.isSame(counter, 'day')) ? ' calendar-col-today' : '' %>">
+							<%= instance.renderSection(counter) %>
+						</div>
+						<% counter.add(1, 'days') %>
+						<div class="calendar-col-split<%= (now.isSame(counter, 'day')) ? ' calendar-col-today' : '' %>">
+							<%= instance.renderSection(counter) %>
+						</div>
+					</div>
+					
+				<% } else { %>
+
+					<%
+					clss = 'calendar-col';
+					if (now.isSame(counter, 'day')) clss += ' calendar-col-today';
+					%>
+
+					<% if ($.inArray(counter.weekday(), [3]) !== -1) { %>
+						</div><div class="calendar-row">
+					<% } %>
+					
+					<div class="<%= clss %>">
+						<%= instance.renderSection(counter) %>
+					</div>
+					
+				<% } %>
+
+				<% counter.add(1, 'days') %>
+				
+			<% } %>
+		</div>
+	</div>
+</div>

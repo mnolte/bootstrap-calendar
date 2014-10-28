@@ -1,15 +1,24 @@
 {
   "name": "bootstrap-calendar",
+  "description": "Easy, flexible and responsive event navigation for Bootstrap.",
   "version": "1.0.0",
+  "main": [
+	"dist/css/bootstrap-calendar.css",
+	"dist/js/bootstrap-calendar.js"
+  ],
+  "license": "https://github.com/mnolte/bootstrap-calendar/blob/master/LICENSE",
+  "ignore": [
+	".bowerrc",
+	"*.sh"
+  ],
   "authors": [
     "Marc Nolte <marcnolte@hotmail.com>"
   ],
-  "description": "Calendar plugin for Twitter Bootstrap.",
-  "license": "MIT",
-  "private": true,
   "dependencies": {
     "jquery": "~1.9.0",
     "moment": "~2.8.3",
     "underscore": "~1.7.0"
-  }
+  },
+  
+  "private": true
 }

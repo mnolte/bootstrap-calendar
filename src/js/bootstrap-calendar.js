@@ -26,6 +26,7 @@
 		classes			: {
 			header			: '.calendar-header',
 			headerTitle		: '.calendar-title',
+			headerToolbar	: '.calendar-toolbar',
 			container		: '.calendar-container'
 		},
 		templates_path	: 'templates/'
@@ -39,6 +40,11 @@
 
 			// Set locale
 			instance.setLocale(instance.options.locale);
+			
+			// Render toolbar
+			$.when(methods.loadTemplate(instance, 'toolbar')).then(function(){
+				instance.$headerToolbar.html(instance.constants.templates['toolbar']);
+			});
 
 			// Render view
 			instance.render(instance.options.date);
@@ -61,7 +67,7 @@
 		},
 
 		// Load view template
-		loadTemplate	: function ( instance, name) {
+		loadTemplate	: function ( instance, name ) {
 
 			// Check template already exists in constants
 			if (instance.constants.templates[name])
@@ -129,6 +135,7 @@
 		this.$wrapper		= $(this.element);
 		this.$header		= this.$wrapper.find(this.options.classes.header).first();
 		this.$headerTitle	= this.$header.find(this.options.classes.headerTitle).first();
+		this.$headerToolbar	= this.$header.find(this.options.classes.headerToolbar).first();
 		this.$container		= this.$wrapper.find(this.options.classes.container).first();
 
 		// Initialize Plugin
@@ -145,13 +152,16 @@
 		// Set Calendar Locale
 		setLocale	: function (locale) {
 
+			// Define parameters
+			var localeData,
+				weekday		= moment();
+
 			// Define locale
-			locale		= typeof locale === 'string' ? locale : this.options.locale,
-			localeData	= moment.localeData(),
-			weekday		= moment();
+			locale = typeof locale === 'string' ? locale : this.options.locale
 
 			// Set locale
 			moment.locale(this.options.locale = locale);
+			localeData = moment.localeData();
 
 			// Set locale months
 			this.constants.months = moment.months();

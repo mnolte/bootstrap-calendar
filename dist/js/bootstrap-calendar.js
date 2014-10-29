@@ -154,7 +154,7 @@
 
 			// Define parameters
 			var localeData,
-				weekday		= moment();
+				weekday;
 
 			// Define locale
 			locale = typeof locale === 'string' ? locale : this.options.locale
@@ -166,7 +166,8 @@
 			// Set locale months
 			this.constants.months = moment.months();
 			
-			// Generate locale weekdays 
+			// Generate locale weekdays
+			weekday = moment();
 			this.constants.weekdays 	 = [];
 			this.constants.weekdaysShort = [];
 			this.constants.weekdaysMin	 = [];

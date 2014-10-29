@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-calendar",
   "description": "Easy, flexible and responsive event navigation for Bootstrap.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": [
 	"dist/css/bootstrap-calendar.css",
 	"dist/js/bootstrap-calendar.js"
